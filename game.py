@@ -73,7 +73,7 @@ def move_items(active, slow_factor, run):
     # Points earned by dodging this frame. The caller adds them to the run's total.
     dodge_points = 0
     for it in active:
-        # Move the item down. slow_factor is 0.5 while chai is active, otherwise 1
+        # Move the item down. slow_factor is 0.5 while Diet Coke is active, otherwise 1
         it["y"] += it["speed"] * slow_factor
 
         if it["y"] > SCREEN_H:
@@ -88,7 +88,7 @@ def move_items(active, slow_factor, run):
 
 
 def check_hits(player, active, run):
-    # The scooter's box: 50 pixels wide, 80 tall, in the player's lane at the bottom
+    # The car's box: 50 pixels wide, 80 tall, in the player's lane at the bottom
     player_rect = pygame.Rect(LANES[player["lane"]] - 25, PLAYER_Y, 50, 80)
 
     # Keep only the items we did not touch. Touched items are handled and then left out.
@@ -128,7 +128,7 @@ def apply_powerup(player, effect):
     if effect == "shield":
         player["shield"] = True
 
-    # Chai: traffic slows down until the time in slow_until
+    # Diet Coke: traffic slows down until the time in slow_until
     elif effect == "slow":
         player["slow_until"] = now + SLOW_MS
 

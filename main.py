@@ -14,7 +14,8 @@ from settings import TEXT_COLOUR, RED, GREEN, ORANGE
 
 
 def load_image(filename, size):
-    # Load one picture and stretch it to the size we need.
+    # Load one picture and shrink it to fit inside the size we need, without stretching it.
+    # It is centred on a see-through box of exactly that size.
     # If the file is missing (or cannot be read) we return None, and the game draws a box instead
     path = os.path.join("assets", filename)
     if not os.path.exists(path):
@@ -23,7 +24,12 @@ def load_image(filename, size):
         image = pygame.image.load(path).convert_alpha()
     except pygame.error:
         return None
-    return pygame.transform.scale(image, size)
+    width, height = image.get_size()
+    scale = min(size[0] / width, size[1] / height)
+    fitted = pygame.transform.smoothscale(image, (int(width * scale), int(height * scale)))
+    box = pygame.Surface(size, pygame.SRCALPHA)
+    box.blit(fitted, ((size[0] - fitted.get_width()) // 2, (size[1] - fitted.get_height()) // 2))
+    return box
 
 
 def load_images(items):
@@ -31,7 +37,7 @@ def load_images(items):
     images = {}
     for it in items:
         images[it["image"]] = load_image(it["image"], (60, 60))
-    images["scooter.png"] = load_image("scooter.png", (50, 80))
+    images["car.png"] = load_image("car.png", (50, 80))
     images["road.png"] = load_image("road.png", SCREEN)
     return images
 
@@ -110,7 +116,7 @@ def start_ride(app):
 
 
 def handle_play_key(app, key):
-    # One key tap moves the scooter exactly one lane. It cannot go past the left or right edge
+    # One key tap moves the car exactly one lane. It cannot go past the left or right edge
     player = app["ride"]["player"]
     if key == pygame.K_LEFT and player["lane"] > 0:
         player["lane"] -= 1
@@ -151,7 +157,7 @@ def update_play(app, frame_ms):
         ride["active"].append(game.spawn(choice, zone))
         ride["last_spawn"] = now
 
-    # Step 5: while chai is active the traffic moves at half speed
+    # Step 5: while Diet Coke is active the traffic moves at half speed
     slow_factor = SLOW_FACTOR if now < player["slow_until"] else 1
 
     # Step 6: move the items, add the points for anything we dodged, then check for hits
@@ -204,16 +210,16 @@ def draw_item(screen, images, fonts, it):
         screen.blit(image, rect)
 
 
-def draw_scooter(screen, images, fonts, player):
-    # The scooter sits in the player's lane, at the bottom of the screen
+def draw_car(screen, images, fonts, player):
+    # The car sits in the player's lane, at the bottom of the screen
     rect = pygame.Rect(LANES[player["lane"]] - 25, PLAYER_Y, 50, 80)
-    image = images.get("scooter.png")
+    image = images.get("car.png")
     if image is None:
-        draw_placeholder(screen, fonts["tiny"], "scooter", RED, rect)
+        draw_placeholder(screen, fonts["tiny"], "car", RED, rect)
     else:
         screen.blit(image, rect)
 
-    # The helmet shield is shown as a green ring around the scooter
+    # The helmet shield is shown as a green ring around the car
     if player["shield"]:
         pygame.draw.rect(screen, GREEN, rect.inflate(16, 16), width=3, border_radius=12)
 
@@ -237,18 +243,18 @@ def draw_hud(screen, fonts, ride, now):
     if player["shield"]:
         status.append("Helmet ON")
     if now < player["slow_until"]:
-        status.append("Chai: slow traffic")
+        status.append("Diet Coke: slow traffic")
     draw_text_right(screen, fonts["small"], "  ".join(status), GREEN, SCREEN_W - 10, 34)
 
 
 def draw_play(screen, fonts, images, app):
-    # Draw the road, the items, the scooter and the HUD, in that order, so the scooter is on top
+    # Draw the road, the items, the car and the HUD, in that order, so the car is on top
     ride = app["ride"]
     now = pygame.time.get_ticks()
     draw_road(screen, images, ride["scroll"])
     for it in ride["active"]:
         draw_item(screen, images, fonts, it)
-    draw_scooter(screen, images, fonts, ride["player"])
+    draw_car(screen, images, fonts, ride["player"])
     draw_hud(screen, fonts, ride, now)
 
     # The "Entering ..." message is shown for a short time after the zone changes

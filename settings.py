@@ -13,8 +13,8 @@ FPS = 60
 # Centre x position (left to right) of each of the 4 lanes.
 LANES = (110, 210, 310, 410)     # tuple: centre x of each lane
 
-# The height (y position) where the top of the scooter sits.
-PLAYER_Y = 640                   # top of the scooter
+# The height (y position) where the top of the car sits.
+PLAYER_Y = 640                   # top of the car
 
 # Speed in pixels per frame, before the zone and item multipliers are applied.
 BASE_SPEED = 5                   # pixels per frame before multipliers
@@ -23,8 +23,8 @@ BASE_SPEED = 5                   # pixels per frame before multipliers
 START_LIVES = 3
 MAX_LIVES = 5
 
-# Chai power-up: how long it lasts (in milliseconds) and how much it slows traffic.
-SLOW_MS = 4000                   # chai lasts 4 seconds
+# Diet Coke power-up: how long it lasts (in milliseconds) and how much it slows traffic.
+SLOW_MS = 4000                   # Diet Coke slows traffic for 4 seconds
 SLOW_FACTOR = 0.5                # 0.5 means things move at half speed
 
 # How long the "Entering Dharampeth!" message stays on screen, in milliseconds.

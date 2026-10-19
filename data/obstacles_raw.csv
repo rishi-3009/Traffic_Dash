@@ -8,5 +8,5 @@ stray_dog,obstacle,dog.png,1.5,,15,15,none
 barricade,obstacle,barricade.png,1.0,1,5,##,none
 cow,obstacle,cow.png,0.6,1,15,25,none
 helmet,powerup,helmet.png,1.0,0,0,6,shield
-chai,powerup,chai.png,1.0,0,0,6,slow
+diet_coke,powerup,diet_coke.png,1.0,0,0,6,slow
 petrol,powerup,petrol.png,1.0,0,0,4,life
