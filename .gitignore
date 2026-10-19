@@ -1,0 +1,10 @@
+# Python cache files, made automatically when the game runs
+__pycache__/
+
+# Local Claude Code settings, not part of the project
+.claude/
+
+# Files the game creates while you play
+data/runs.csv
+data/crashes.csv
+data/obstacles_clean.csv
