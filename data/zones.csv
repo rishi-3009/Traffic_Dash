@@ -1,5 +1,5 @@
 zone,start_m,speed_mult,spawn_gap_ms,allowed
-Sitabuldi,0,1.0,1100,cow|auto|cycle_rickshaw|pothole|helmet|chai
+Sitabuldi,0,1.0,1100,cow|auto|cycle_rickshaw|pothole|stray_dog|helmet|chai
 Dharampeth,800,1.25,950,cow|auto|stray_dog|pothole|bus|helmet|chai|petrol
 Wardha Road,1800,1.55,800,auto|bus|barricade|pothole|stray_dog|helmet|petrol
 Ring Road,3000,1.9,650,bus|auto|barricade|cow|pothole|chai|petrol
