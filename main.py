@@ -59,6 +59,17 @@ def draw_text_right(screen, font, text, colour, right_x, y):
     draw_text(screen, font, text, colour, right_x - width, y)
 
 
+def draw_heart(screen, centre_x, centre_y, size, colour):
+    # A heart is two circles on top and a point at the bottom
+    half = size // 4
+    top_y = centre_y - half
+    pygame.draw.circle(screen, colour, (centre_x - half, top_y), half)
+    pygame.draw.circle(screen, colour, (centre_x + half, top_y), half)
+    pygame.draw.polygon(screen, colour, [(centre_x - 2 * half, top_y),
+                                         (centre_x + 2 * half, top_y),
+                                         (centre_x, centre_y + size // 2)])
+
+
 def draw_centred(screen, font, text, colour, y):
     # Draw text in the middle of the screen, from left to right, at height y
     surface = font.render(text, True, colour)
@@ -232,8 +243,9 @@ def draw_hud(screen, fonts, ride, now):
 
     # Top line: score on the left, hearts for lives in the middle, distance in km on the right
     draw_text(screen, fonts["small"], "Score {}".format(run["score"]), TEXT_COLOUR, 10, 8)
+    # One heart for each life left
     for i in range(max(player["lives"], 0)):
-        pygame.draw.circle(screen, RED, (150 + i * 22, 22), 8)
+        draw_heart(screen, 160 + i * 22, 20, 16, RED)
     draw_text_right(screen, fonts["small"], "{:.1f} km".format(run["distance"] / 1000),
                     TEXT_COLOUR, SCREEN_W - 10, 8)
 
