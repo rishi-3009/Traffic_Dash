@@ -88,7 +88,7 @@ def move_items(active, slow_factor, run):
 
 
 def check_hits(player, active, run):
-    # The car's box: 50 pixels wide, 80 tall, in the player's lane at the bottom
+    # The scooter's box: 50 pixels wide, 80 tall, in the player's lane at the bottom
     player_rect = pygame.Rect(LANES[player["lane"]] - 25, PLAYER_Y, 50, 80)
 
     # Keep only the items we did not touch. Touched items are handled and then left out.

@@ -13,8 +13,8 @@ FPS = 60
 # Centre x position (left to right) of each of the 4 lanes.
 LANES = (110, 210, 310, 410)     # tuple: centre x of each lane
 
-# The height (y position) where the top of the car sits.
-PLAYER_Y = 640                   # top of the car
+# The height (y position) where the top of the scooter sits.
+PLAYER_Y = 640                   # top of the scooter
 
 # Speed in pixels per frame, before the zone and item multipliers are applied.
 BASE_SPEED = 5                   # pixels per frame before multipliers
